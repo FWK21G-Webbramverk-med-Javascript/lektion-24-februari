@@ -21,17 +21,19 @@ import './App.css';
  * Spara värderna från inputfälten i en variabel
  */
 
+import { useState } from 'react';
+
 import ShowInsult from './components/ShowInsult';
 import AddInsult from './components/AddInsult';
 
 function App() {
-  const insults = [
+  const [insults, setInsults] = useState([
     { insult: 'Were such things here as we do speak about? Or have we eaten on the insane root That takes the reason prisoner?', play: 'Macbeth', id: 1 },
     { insult: 'Never hung poison on a fouler toad', play: 'Richard III', id: 2 },
     { insult: 'He thinks too much: such men are dangerous.', play: 'Julius Ceasar', id: 3 },
     { insult: 'Thou calledst me a dog before thou hadst a cause. But since I am a dog, beware my fangs.', play: 'The Merchant of Venice', id: 4 },
     { insult: 'Give me your hand...I can tell your fortune. You are a fool.', play: 'The Two Noble Kinsmen', id: 5 }
-  ];
+  ]);
 
   const randomPosition = Math.floor(Math.random() * insults.length);
   const randomInsult = insults[randomPosition];
@@ -39,8 +41,10 @@ function App() {
   console.log(randomInsult);
 
   function addNewInsult(newInsult) {
-    insults.push(newInsult);
-    console.log(insults);
+    newInsult.id = insults.length + 1;
+    const newInsultsArray = insults.concat(newInsult);
+
+    setInsults(newInsultsArray);
   }
 
   const insultComponents = insults.map((insult) => {
@@ -65,3 +69,4 @@ function App() {
 }
 
 export default App;
+
